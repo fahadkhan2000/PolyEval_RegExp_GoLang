@@ -28,36 +28,26 @@ func determineTypeOfTermForSplitting(singleTerm string) []string {
 	if s.Contains(singleTerm, "^") == true {
 		if s.HasPrefix(singleTerm, "x") == true || s.HasPrefix(singleTerm, "-x") == true || s.HasPrefix(singleTerm, "+x") == true {
 			singleTerm = s.Replace(singleTerm, "x", "1x", -1)
-			splittedCoeffAndPower = splitTermIntoCoeffAndPower(singleTerm)
-			} else {
-			splittedCoeffAndPower = splitTermIntoCoeffAndPower(singleTerm)
-			}
-	} else if s.Contains(singleTerm, "^") == false {
-			if s.Contains(singleTerm , "x") == true {
+		} 
+	} else {
+		if s.Contains(singleTerm , "x") == true {
 			singleTerm = s.Replace(singleTerm, "x", "x^1", -1)
-			splittedCoeffAndPower = splitTermIntoCoeffAndPower(singleTerm)
 		} else {
 			var appender string = "x^0"
 			singleTerm = s.Join([]string{singleTerm, appender} , "")
-			splittedCoeffAndPower = splitTermIntoCoeffAndPower(singleTerm)
 		}
 	} 
-	return splittedCoeffAndPower
+	return splitTermIntoCoeffAndPower(singleTerm)
 }
 
 func splitTermIntoCoeffAndPower(singleTerm string) []string {
-	var splittedCoeffAndPower = []string{}
 
-	if singleTerm == "x^1" || singleTerm == "-x^1" {
+	if s.Contains(singleTerm , "x^1") == true {
 		singleTerm = s.Replace(singleTerm, "x", "1", -1)
-		splittedCoeffAndPower = s.Split(singleTerm, "^")
-	} else {
-			splittedCoeffAndPower = s.Split(singleTerm, "^")
-	        tempString := s.Join(splittedCoeffAndPower, "")
-	        splittedCoeffAndPower = splittedCoeffAndPower[:0]
-	        splittedCoeffAndPower = s.Split(tempString, "x")
-	}
-	return splittedCoeffAndPower
+		return s.Split(singleTerm, "^")
+	} 
+
+	return s.Split(singleTerm, "x^")
 }
 
 func convertTermFromStringToDouble(splittedCoeffAndPower []string) (coeff, exp float64) {
@@ -98,7 +88,7 @@ func unitTest() {
     monomialsArray := createTermsByRegExp(pol)
     calculateFinalResult(monomialsArray , val)
 
-    pol = "-x"
+    pol = "-x^1"
     val = 1.0
     monomialsArray = createTermsByRegExp(pol)
     calculateFinalResult(monomialsArray , val)
@@ -123,8 +113,8 @@ func unitTest() {
     monomialsArray = createTermsByRegExp(pol)
     calculateFinalResult(monomialsArray , val)
 
-    pol = "2x^3 + 2x + 2"
-    val = 2.0
+    pol = ".2x^3 + .2x + .2"
+    val = 1.0
     monomialsArray = createTermsByRegExp(pol)
     calculateFinalResult(monomialsArray , val)
 
@@ -138,7 +128,7 @@ func unitTest() {
     monomialsArray = createTermsByRegExp(pol)
     calculateFinalResult(monomialsArray , val)
 
-    pol = "+1x^2 + 3x^3 + 5x^5 + 7x^7+1.17"
+    pol = "+1x^2 + 3x^3 + 5x^5 + 7x^7 +1.17"
     val = 1.0
     monomialsArray = createTermsByRegExp(pol)
     calculateFinalResult(monomialsArray , val)
@@ -148,7 +138,7 @@ func unitTest() {
     monomialsArray = createTermsByRegExp(pol)
     calculateFinalResult(monomialsArray , val)
 
-    pol = "x^5 - 40x^4 + 30x^3 -20x^2 +10x+81.3"
+    pol = "- 40x^4 + 30x^3 + x^5 -20x^2 +10x+81.3"
     val = 1.0
     monomialsArray = createTermsByRegExp(pol)
     calculateFinalResult(monomialsArray , val)
