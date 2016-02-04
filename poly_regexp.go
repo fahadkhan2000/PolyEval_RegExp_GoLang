@@ -23,8 +23,6 @@ func evaluateTerm(singleTerm string , val float64) float64 {
 }
 
 func determineTypeOfTermForSplitting(singleTerm string) []string {
-	splittedCoeffAndPower := []string {"0", "0"}
-
 	if s.Contains(singleTerm, "^") == true {
 		if s.HasPrefix(singleTerm, "x") == true || s.HasPrefix(singleTerm, "-x") == true || s.HasPrefix(singleTerm, "+x") == true {
 			singleTerm = s.Replace(singleTerm, "x", "1x", -1)
@@ -42,11 +40,10 @@ func determineTypeOfTermForSplitting(singleTerm string) []string {
 
 func splitTermIntoCoeffAndPower(singleTerm string) []string {
 
-	if s.Contains(singleTerm , "x^1") == true {
+	if singleTerm == "x^1" || singleTerm == "-x^1" {
 		singleTerm = s.Replace(singleTerm, "x", "1", -1)
 		return s.Split(singleTerm, "^")
 	} 
-
 	return s.Split(singleTerm, "x^")
 }
 
@@ -81,9 +78,10 @@ func main() {
 /**
 unit test case
 */
+
 func unitTest() {
 
-	pol := "x"
+	pol := "-x"
     val := 1.0
     monomialsArray := createTermsByRegExp(pol)
     calculateFinalResult(monomialsArray , val)
@@ -123,7 +121,7 @@ func unitTest() {
     monomialsArray = createTermsByRegExp(pol)
     calculateFinalResult(monomialsArray , val)
 
-    pol = "x^100 + 2"
+    pol = "-x^101 + 1"
     val = 1.0
     monomialsArray = createTermsByRegExp(pol)
     calculateFinalResult(monomialsArray , val)
