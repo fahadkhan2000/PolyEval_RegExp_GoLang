@@ -6,19 +6,13 @@ import "strconv"
 import "regexp"
 var print = fmt.Println
 
-func convertPolyToStandardFormat(pol string) []string {
-	polWithoutSpaces := s.Replace(pol , " ", "", -1)
-	monomialsArray := createTermsByRegExp(polWithoutSpaces)
-	print("Array of monomials = " , monomialsArray)
-	return monomialsArray
-}
-
 func createTermsByRegExp(pol string) []string {
 
 	pol = s.Replace(pol, " ", "", -1)
 	var pattern = "([+-]?\\d*(?:\\.?\\d*))x(\\^(\\d*))?|([+-]\\d*(?:\\.?\\d*))"
 	pat, _ := regexp.Compile(pattern)
 	var monomialsArray = (pat.FindAllString(pol, -1))
+	print("Array of monomials = " , monomialsArray)
 	return monomialsArray
 }
 
@@ -86,13 +80,13 @@ func calculateFinalResult(monomialsArray []string, val float64) {
 	for i := 0; i < len(monomialsArray); i++ {
 		finalRes = finalRes + evaluateMonomial(monomialsArray[i] , val) 
 	}
-	print("final result = ", finalRes)
+	print("x = ", val)
+	print("final result = ", finalRes, "\n")
 }
 
 func main() {
 	unitTest()
 }
-
 
 /**
 unit test case
@@ -101,62 +95,62 @@ func unitTest() {
 
 	pol := "x"
     val := 1.0
-    monomialsArray := convertPolyToStandardFormat(pol)
+    monomialsArray := createTermsByRegExp(pol)
     calculateFinalResult(monomialsArray , val)
 
     pol = "-x"
     val = 1.0
-    monomialsArray = convertPolyToStandardFormat(pol)
+    monomialsArray = createTermsByRegExp(pol)
     calculateFinalResult(monomialsArray , val)
 
     pol = "+x^12"
     val = 2.0
-    monomialsArray = convertPolyToStandardFormat(pol)
+    monomialsArray = createTermsByRegExp(pol)
     calculateFinalResult(monomialsArray , val)
 
     pol = "-2x^10"
     val = 2.0
-    monomialsArray = convertPolyToStandardFormat(pol)
+    monomialsArray = createTermsByRegExp(pol)
     calculateFinalResult(monomialsArray , val)
 
     pol = "+100"
     val = 3.0
-    monomialsArray = convertPolyToStandardFormat(pol)
+    monomialsArray = createTermsByRegExp(pol)
     calculateFinalResult(monomialsArray , val)
 
     pol = "-100.001"
     val = 11.0
-    monomialsArray = convertPolyToStandardFormat(pol)
+    monomialsArray = createTermsByRegExp(pol)
     calculateFinalResult(monomialsArray , val)
 
     pol = "2x^3 + 2x + 2"
     val = 2.0
-    monomialsArray = convertPolyToStandardFormat(pol)
+    monomialsArray = createTermsByRegExp(pol)
     calculateFinalResult(monomialsArray , val)
 
     pol = "-2x^3-2x-2"
     val = 2.0
-    monomialsArray = convertPolyToStandardFormat(pol)
+    monomialsArray = createTermsByRegExp(pol)
     calculateFinalResult(monomialsArray , val)
 
     pol = "x^100 + 2"
     val = 1.0
-    monomialsArray = convertPolyToStandardFormat(pol)
+    monomialsArray = createTermsByRegExp(pol)
     calculateFinalResult(monomialsArray , val)
 
     pol = "+1x^2 + 3x^3 + 5x^5 + 7x^7+1.17"
     val = 1.0
-    monomialsArray = convertPolyToStandardFormat(pol)
+    monomialsArray = createTermsByRegExp(pol)
     calculateFinalResult(monomialsArray , val)
 
     pol = "1x^2+3x^3+5x^5+7x^7+0+1"
     val = 1.0
-    monomialsArray = convertPolyToStandardFormat(pol)
+    monomialsArray = createTermsByRegExp(pol)
     calculateFinalResult(monomialsArray , val)
 
     pol = "x^5 - 40x^4 + 30x^3 -20x^2 +10x+81.3"
     val = 1.0
-    monomialsArray = convertPolyToStandardFormat(pol)
+    monomialsArray = createTermsByRegExp(pol)
     calculateFinalResult(monomialsArray , val)
 }
 
