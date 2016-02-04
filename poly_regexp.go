@@ -16,13 +16,13 @@ func createTermsByRegExp(pol string) []string {
 	return monomialsArray
 }
 
-func evaluateMonomial(singleTerm string , val float64) float64 {
-	splittedCoeffAndPower := determineTypeOfMonomialForSplitting(singleTerm)
-	coeff, exp := convertMonomialFromStringToDouble(splittedCoeffAndPower)
+func evaluateTerm(singleTerm string , val float64) float64 {
+	splittedCoeffAndPower := determineTypeOfTermForSplitting(singleTerm)
+	coeff, exp := convertTermFromStringToDouble(splittedCoeffAndPower)
 	return coeff * (math.Pow(val , exp))
 }
 
-func determineTypeOfMonomialForSplitting(singleTerm string) []string {
+func determineTypeOfTermForSplitting(singleTerm string) []string {
 	splittedCoeffAndPower := []string {"0", "0"}
 
 	if s.Contains(singleTerm, "^") == true {
@@ -60,7 +60,7 @@ func splitTermIntoCoeffAndPower(singleTerm string) []string {
 	return splittedCoeffAndPower
 }
 
-func convertMonomialFromStringToDouble(splittedCoeffAndPower []string) (coeff, exp float64) {
+func convertTermFromStringToDouble(splittedCoeffAndPower []string) (coeff, exp float64) {
 	var coeffAndExpArray = []float64{}
 	for _,i := range splittedCoeffAndPower {
 		flt, err := strconv.ParseFloat(i , 64)
@@ -78,7 +78,7 @@ func calculateFinalResult(monomialsArray []string, val float64) {
 	var finalRes float64 = 0.0
 
 	for i := 0; i < len(monomialsArray); i++ {
-		finalRes = finalRes + evaluateMonomial(monomialsArray[i] , val) 
+		finalRes = finalRes + evaluateTerm(monomialsArray[i] , val) 
 	}
 	print("x = ", val)
 	print("final result = ", finalRes, "\n")
