@@ -61,84 +61,20 @@ func convertTermFromStringToDouble(splittedCoeffAndPower []string) (coeff, exp f
 	return coeff, exp
 }
 
-func calculateFinalResult(monomialsArray []string, val float64) {
+func calculateFinalResult(monomialsArray []string, val float64) float64 {
 	var finalRes float64 = 0.0
 
 	for i := 0; i < len(monomialsArray); i++ {
 		finalRes = finalRes + evaluateTerm(monomialsArray[i] , val) 
 	}
 	print("x = ", val)
-	print("final result = ", finalRes, "\n")
+	//print("final result = ", finalRes)
+    return finalRes
 }
 
 func main() {
-	unitTest()
-}
-
-/**
-unit test case
-*/
-
-func unitTest() {
-
-	pol := "-x"
+    pol := "-x"
     val := 1.0
     monomialsArray := createTermsByRegExp(pol)
     calculateFinalResult(monomialsArray , val)
-
-    pol = "-x^1"
-    val = 1.0
-    monomialsArray = createTermsByRegExp(pol)
-    calculateFinalResult(monomialsArray , val)
-
-    pol = "+x^12"
-    val = 2.0
-    monomialsArray = createTermsByRegExp(pol)
-    calculateFinalResult(monomialsArray , val)
-
-    pol = "-2x^10"
-    val = 2.0
-    monomialsArray = createTermsByRegExp(pol)
-    calculateFinalResult(monomialsArray , val)
-
-    pol = "+100"
-    val = 3.0
-    monomialsArray = createTermsByRegExp(pol)
-    calculateFinalResult(monomialsArray , val)
-
-    pol = "-100.001"
-    val = 11.0
-    monomialsArray = createTermsByRegExp(pol)
-    calculateFinalResult(monomialsArray , val)
-
-    pol = ".2x^3 + .2x + .2"
-    val = 1.0
-    monomialsArray = createTermsByRegExp(pol)
-    calculateFinalResult(monomialsArray , val)
-
-    pol = "-2x^3-2x-2"
-    val = 2.0
-    monomialsArray = createTermsByRegExp(pol)
-    calculateFinalResult(monomialsArray , val)
-
-    pol = "-x^101 + 1"
-    val = 1.0
-    monomialsArray = createTermsByRegExp(pol)
-    calculateFinalResult(monomialsArray , val)
-
-    pol = "+1x^2 + 3x^3 + 5x^5 + 7x^7 +1.17"
-    val = 1.0
-    monomialsArray = createTermsByRegExp(pol)
-    calculateFinalResult(monomialsArray , val)
-
-    pol = "1x^2+3x^3+5x^5+7x^7+0+1"
-    val = 1.0
-    monomialsArray = createTermsByRegExp(pol)
-    calculateFinalResult(monomialsArray , val)
-
-    pol = "- 40x^4 + 30x^3 + x^5 -20x^2 +10x+81.3"
-    val = 1.0
-    monomialsArray = createTermsByRegExp(pol)
-    calculateFinalResult(monomialsArray , val)
 }
-
