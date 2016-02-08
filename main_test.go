@@ -2,26 +2,19 @@ package main
 import "testing"
 
 func TestCalculateFinalResult(t *testing.T) {
-
-	print(len(testMap))
-
 	for key, value := range testMap {
 		var testPol = key
 		var testMonArray = createTermsByRegExp(testPol)
-		var testFinRes = calculateFinalResult(testMonArray, testVal)
-		if(testFinRes != value) {
+		if(calculateFinalResult(testMonArray, testVal) != value) {
 			t.Error("Status: Error")
 			return
-		} else {
-
-			print("Status: OK")
-		}
-
+		} 
 		if len(testMonArray) <= 0 {
 			t.Error("Status: Invalid Polynomial")
 			return
 		}
 	}
+	print("\nStatus: No problems found. Test completed successfully.\n")
 }
 
 type testpair struct {
