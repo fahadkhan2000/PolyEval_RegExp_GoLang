@@ -3,8 +3,7 @@ import "testing"
 
 func TestCalculateFinalResult(t *testing.T) {
 	for key, value := range testMap {
-		var testPol = key
-		var testMonArray = createTermsByRegExp(testPol)
+		var testMonArray = createTermsByRegExp(key)
 		if(calculateFinalResult(testMonArray, testVal) != value) {
 			t.Error("Status: Error")
 			return
@@ -38,4 +37,3 @@ var testMap = map[string]float64 {
 "- 40x^4 + 30x^3 + x^5 -20x^2 +10x+81.3" : -262.65301,
 //"cat" : 0.000,
 }
-
