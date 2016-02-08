@@ -1,10 +1,10 @@
 package main
 import "testing"
 
-func TestUnit(t *testing.T) {
+func TestCalculateFinalResult(t *testing.T) {
 	for i:=0; i<len(pol); i++ {
 		var testMonArray = createTermsByRegExp(pol[i])
-		if len(testMonArray) <= 0 || testMonArray[0] == " " {
+		if len(testMonArray) <= 0 {
 			t.Error("this: is Invalid Polynomial")
 			return
 		}
@@ -31,7 +31,7 @@ var pol = []string {
 "-2x^3-2x-2", 
 "-x^101 + 2", 
 "+1x^2 + 3x^3 + 5x^5 + 7x^7 +1.17", 
-"1x^2+3x^3+5x^5+7x^7+0+1",
+"1x^2+3x^3+5x^5+7x^7+1+0+2",
 "cats",
 "- 40x^4 + 30x^3 + x^5 -20x^2 +10x+81.3",
 }
