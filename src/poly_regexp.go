@@ -63,7 +63,7 @@ func calculateFinalResult(monomialsArray []string, val float64) float64 {
 	var finalRes float64 = 0.0
 
 	for i := 0; i < len(monomialsArray); i++ {
-		finalRes = finalRes + evaluateTerm(monomialsArray[i] , val)
+		finalRes = finalRes + evaluateTerm(monomialsArray[i] , val)	
 	}
     return finalRes
 }
