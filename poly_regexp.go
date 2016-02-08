@@ -11,9 +11,7 @@ func createTermsByRegExp(pol string) []string {
 	pol = s.Replace(pol, " ", "", -1)
 	var pattern = "([+-]?\\d*(?:\\.?\\d*))x(\\^(\\d*))?|([+-]\\d*(?:\\.?\\d*))"
 	pat, _ := regexp.Compile(pattern)
-	var monomialsArray = (pat.FindAllString(pol, -1))
-	print("Array of monomials = " , monomialsArray)
-	return monomialsArray
+	return pat.FindAllString(pol, -1)
 }
 
 func evaluateTerm(singleTerm string , val float64) float64 {
@@ -65,10 +63,8 @@ func calculateFinalResult(monomialsArray []string, val float64) float64 {
 	var finalRes float64 = 0.0
 
 	for i := 0; i < len(monomialsArray); i++ {
-		finalRes = finalRes + evaluateTerm(monomialsArray[i] , val) 
+		finalRes = finalRes + evaluateTerm(monomialsArray[i] , val)
 	}
-	print("x = ", val)
-	//print("final result = ", finalRes)
     return finalRes
 }
 
