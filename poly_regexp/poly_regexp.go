@@ -1,4 +1,4 @@
-package main
+package poly_regexp
 import "fmt"
 import s "strings"
 import "math"
@@ -6,7 +6,7 @@ import "strconv"
 import "regexp"
 var print = fmt.Println
 
-func createTermsByRegExp(pol string) []string {
+func CreateTermsByRegExp(pol string) []string {
 
 	pol = s.Replace(pol, " ", "", -1)
 	var pattern = "([+-]?\\d*(?:\\.?\\d*))x(\\^(\\d*))?|([+-]\\d*(?:\\.?\\d*))"
@@ -14,13 +14,13 @@ func createTermsByRegExp(pol string) []string {
 	return pat.FindAllString(pol, -1)
 }
 
-func evaluateTerm(singleTerm string , val float64) float64 {
-	splittedCoeffAndPower := determineTypeOfTermForSplitting(singleTerm)
-	coeff, exp := convertTermFromStringToDouble(splittedCoeffAndPower)
+func EvaluateTerm(singleTerm string , val float64) float64 {
+	splittedCoeffAndPower := DetermineTypeOfTermForSplitting(singleTerm)
+	coeff, exp := ConvertTermFromStringToDouble(splittedCoeffAndPower)
 	return coeff * (math.Pow(val , exp))
 }
 
-func determineTypeOfTermForSplitting(singleTerm string) []string {
+func DetermineTypeOfTermForSplitting(singleTerm string) []string {
 	if s.Contains(singleTerm, "^") == true {
 		if s.HasPrefix(singleTerm, "x") == true || s.HasPrefix(singleTerm, "-x") == true || s.HasPrefix(singleTerm, "+x") == true {
 			singleTerm = s.Replace(singleTerm, "x", "1x", -1)
@@ -33,10 +33,10 @@ func determineTypeOfTermForSplitting(singleTerm string) []string {
 			singleTerm = s.Join([]string{singleTerm, appender} , "")
 		}
 	} 
-	return splitTermIntoCoeffAndPower(singleTerm)
+	return SplitTermIntoCoeffAndPower(singleTerm)
 }
 
-func splitTermIntoCoeffAndPower(singleTerm string) []string {
+func SplitTermIntoCoeffAndPower(singleTerm string) []string {
 
 	if singleTerm == "x^1" || singleTerm == "-x^1" {
 		singleTerm = s.Replace(singleTerm, "x", "1", -1)
@@ -45,7 +45,7 @@ func splitTermIntoCoeffAndPower(singleTerm string) []string {
 	return s.Split(singleTerm, "x^")
 }
 
-func convertTermFromStringToDouble(splittedCoeffAndPower []string) (coeff, exp float64) {
+func ConvertTermFromStringToDouble(splittedCoeffAndPower []string) (coeff, exp float64) {
 	var coeffAndExpArray = []float64{}
 	for _,i := range splittedCoeffAndPower {
 		flt, err := strconv.ParseFloat(i , 64)
@@ -59,11 +59,11 @@ func convertTermFromStringToDouble(splittedCoeffAndPower []string) (coeff, exp f
 	return coeff, exp
 }
 
-func calculateFinalResult(monomialsArray []string, val float64) float64 {
+func CalculateFinalResult(monomialsArray []string, val float64) float64 {
 	var finalRes float64 = 0.0
 
 	for i := 0; i < len(monomialsArray); i++ {
-		finalRes = finalRes + evaluateTerm(monomialsArray[i] , val)	
+		finalRes = finalRes + EvaluateTerm(monomialsArray[i] , val)	
 	}
     return finalRes
 }
@@ -71,6 +71,6 @@ func calculateFinalResult(monomialsArray []string, val float64) float64 {
 func main() {
     pol := "-x"
     val := 1.0
-    monomialsArray := createTermsByRegExp(pol)
-    calculateFinalResult(monomialsArray , val)
+    monomialsArray := CreateTermsByRegExp(pol)
+    CalculateFinalResult(monomialsArray , val)
 }

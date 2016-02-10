@@ -1,10 +1,13 @@
-package main
-import "testing"
+package poly_regexp_test
+import (
+"testing"
+ "PolyEval_RegExp_GoLang/poly_regexp"
+)
 
 func TestCalculateFinalResult(t *testing.T) {
 	for key, value := range testMap {
-		var testMonArray = createTermsByRegExp(key)
-		if(calculateFinalResult(testMonArray, testVal) != value) {
+		var testMonArray = poly_regexp.CreateTermsByRegExp(key)
+		if(poly_regexp.CalculateFinalResult(testMonArray, testVal) != value) {
 			t.Error("Status: Error")
 			return
 		} 
@@ -35,5 +38,4 @@ var testMap = map[string]float64 {
 	"+1x^2 + 3x^3 + 5x^5 + 7x^7 +1.17" : 774.8721672999999, 
 	"1x^2+3x^3+5x^5+7x^7+1.17+0" : 774.8721672999999,
 	"- 40x^4 + 30x^3 + x^5 -20x^2 +10x+81.3" : -262.65301,
-//"cat" : 0.000,
 } 
